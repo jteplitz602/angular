@@ -1,6 +1,40 @@
 import {StringMap, List, StringMapWrapper} from "angular2/src/facade/collection";
 import {isPresent, isBlank, RegExpWrapper} from "angular2/src/facade/lang";
 
+export interface TestInterface{
+  id: string,
+  name: string,
+  selector: string,
+  compiled: boolean,
+  attributes: StringMap<string, string>,
+  properties: List<string>
+}
+
+export class TestInterface_impl implements TestInterface {
+  id: string;
+  name: string;
+  selector: string;
+  compiled: boolean;
+  attributes: StringMap<string, string>;
+  properties: List<string>;
+
+  constructor({id, name, selector, compiled, attributes, properties}: {
+    id?: string,
+    name?: string,
+    selector?: string,
+    compiled?: boolean,
+    attributes?: StringMap<string, string>,
+    properties?: List<string>
+  }) {
+    this.id = id;
+    this.name = name;
+    this.selector = selector;
+    this.compiled = compiled;
+    this.attributes = attributes;
+    this.properties = properties;
+  }
+}
+
 export interface DirectiveMetadata {
   DIRECTIVE_TYPE: number,
   COMPONENT_TYPE: number,
