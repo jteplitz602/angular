@@ -2,12 +2,12 @@ import {StringMap, List, StringMapWrapper} from "angular2/src/facade/collection"
 import {isPresent, isBlank, RegExpWrapper} from "angular2/src/facade/lang";
 
 export interface TestInterface{
-  id: string,
-  name: string,
-  selector: string,
-  compiled: boolean,
-  attributes: StringMap<string, string>,
-  properties: List<string>
+  id: string;
+  name: string;
+  selector: string;
+  compiled: boolean;
+  attributes: StringMap<string, string>;
+  properties: List<string>;
 }
 
 export class TestInterface_impl implements TestInterface {
@@ -35,9 +35,9 @@ export class TestInterface_impl implements TestInterface {
   }
 }
 
-export interface DirectiveMetadata {
-  DIRECTIVE_TYPE: number,
-  COMPONENT_TYPE: number,
+/*export interface DirectiveMetadata {
+  DIRECTIVE_TYPE: number;
+  COMPONENT_TYPE: number;
   id: any;
   selector: string;
   compileChildren: boolean;
@@ -123,4 +123,4 @@ export class DirectiveMetadataFactory{
       exportAs: exportAs
     }
   }
-}
+}*/
