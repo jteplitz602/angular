@@ -30,7 +30,6 @@ interface BrowserNodeGlobal {
   clearTimeout: Function;
   setInterval: Function;
   clearInterval: Function;
-  Worker: Function;
 }
 
 declare var global: any;
