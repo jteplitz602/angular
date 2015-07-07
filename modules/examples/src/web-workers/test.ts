@@ -17,6 +17,7 @@ import {
 import {TestInterface, TestInterface_impl} from "angular2/src/web-workers/shared/api";
 import {StringMapWrapper, ListWrapper} from "angular2/src/facade/collection";
 import {MessageBus} from "angular2/src/facade/message_bus";
+import {Promise, PromiseWrapper} from "angular2/src/facade/async";
 import {isJsObject} from "angular2/src/facade/lang";
 
 export function main(){
@@ -28,16 +29,17 @@ export function main(){
     attributes: StringMapWrapper.create(),
     properties: ["hidden"]
   });
-  var messageBus: MessageBus = MessageBus.createWorkerBus("test_worker");
-
-  messageBus.source.listen((result: any) => {
-    if (propertyEquality(result.data, object)){
-      document.write("success");
-    } else {
-      document.write("failure");
-    }
+  var messageBusPromise: Promise<MessageBus> = MessageBus.createWorkerBus("test_worker");
+  PromiseWrapper.then(messageBusPromise, (bus: MessageBus) => {
+    bus.source.listen((result: any) => {
+      if (propertyEquality(result.data, object)){
+        document.write("success");
+      } else {
+        document.write("failure");
+      }
+    });
+    bus.sink.send(object);
   });
-  messageBus.sink.send(object);
 }
 function propertyEquality(first, second){
   if (first === second){

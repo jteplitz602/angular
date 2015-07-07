@@ -1,4 +1,5 @@
 import {isPresent} from "angular2/src/facade/lang";
+import {Promise, PromiseWrapper} from "angular2/src/facade/async";
 
 export class MessageBus{
   sink: MessageBusSink;
@@ -7,8 +8,10 @@ export class MessageBus{
   /**
    * To be called from the main thread to spawn and communicate with the worker thread
    */
-  static createWorkerBus(url: string): MessageBus{
-    return new MessageBus(new Worker(url + ".js"));
+  static createWorkerBus(url: string): Promise<MessageBus>{
+    var promise: Promise<MessageBus> = PromiseWrapper.completer();
+    promise.resolve(new MessageBus(new Worker(url + ".js")));
+    return promise;
   }
 
   /**
@@ -31,7 +34,7 @@ export class MessageBusSink{
     this.worker = worker;
   }
 
-  send(message: Object){
+  send(message: Object): void{
     if (isPresent(this.worker)){
       this.worker.postMessage(message, null);
     } else {
@@ -47,7 +50,7 @@ export class MessageBusSource{
     this.worker = worker;
   }
 
-  listen(fn: EventListener){
+  listen(fn: EventListener): void{
     if (isPresent(this.worker)){
       this.worker.addEventListener("message", fn);
     } else {
