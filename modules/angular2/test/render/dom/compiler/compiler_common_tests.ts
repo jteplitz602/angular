@@ -140,7 +140,7 @@ export function runCompilerCommonTests() {
   });
 }
 
-class MockStepFactory extends CompileStepFactory {
+export class MockStepFactory extends CompileStepFactory {
   steps: List<CompileStep>;
   subTaskPromises: List<Promise<any>>;
   viewDef: ViewDefinition;
@@ -155,7 +155,7 @@ class MockStepFactory extends CompileStepFactory {
   }
 }
 
-class MockStep implements CompileStep {
+export class MockStep implements CompileStep {
   processClosure: Function;
   constructor(process) { this.processClosure = process; }
   process(parent: CompileElement, current: CompileElement, control: CompileControl) {
@@ -169,7 +169,7 @@ var EMPTY_STEP = (parent, current, control) => {
   }
 };
 
-class FakeViewLoader extends ViewLoader {
+export class FakeViewLoader extends ViewLoader {
   _urlData: Map<string, string>;
   constructor(urlData) {
     super(null, null, null);

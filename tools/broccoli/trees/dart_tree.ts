@@ -151,6 +151,7 @@ function getDocsTree() {
 
 module.exports = function makeDartTree(options: AngularBuilderOptions) {
   var dartSources = dartfmt(getSourceTree(), {dartSDK: options.dartSDK, logs: options.logs});
+  // var dartSources = getSourceTree();
   var sourceTree = mergeTrees([dartSources, getHtmlSourcesTree(), getExamplesJsonTree()]);
   sourceTree = fixDartFolderLayout(sourceTree);
 

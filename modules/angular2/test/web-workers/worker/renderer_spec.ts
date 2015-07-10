@@ -117,7 +117,6 @@ export function main() {
   });
 
   describe("Web Worker Renderer", () => {
-    beforeEachBindings(() => [DomTestbed]);
     var renderer: WorkerRenderer;
     var workerSerializer: Serializer;
     var workerRenderViewStore: RenderViewWithFragmentsStore;
@@ -143,7 +142,6 @@ export function main() {
       renderer = createWorkerRenderer(workerSerializer, uiSerializer, tb, uiRenderViewStore,
                                       workerRenderViewStore);
     });
-
 
     it('should create and destroy root host views while using the given elements in place',
        inject([AsyncTestCompleter], (async) => {
