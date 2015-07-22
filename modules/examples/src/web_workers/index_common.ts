@@ -37,7 +37,7 @@ class RedDec {
   // Expressions in the template (like {{greeting}}) are evaluated in the
   // context of the HelloCmp class below.
   template: `<div class="greeting">{{greeting}} <span red>world</span>!</div>
-           <button class="changeButton">change greeting</button>`,
+           <button class="changeButton" (click)="changeGreeting()">change greeting</button>`,
   // All directives used in the template need to be specified. This allows for
   // modularity (RedDec can only be used in this template)
   // and better tooling (the template can be invalidated if the attribute is
@@ -49,5 +49,8 @@ export class HelloCmp {
 
   constructor(service: GreetingService) { this.greeting = service.greeting; }
 
-  changeGreeting(): void { this.greeting = 'howdy'; }
+  changeGreeting(): void {
+    console.log("changing greeting");
+    this.greeting = 'howdy';
+  }
 }

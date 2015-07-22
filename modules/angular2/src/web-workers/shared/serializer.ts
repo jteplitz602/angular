@@ -1,4 +1,11 @@
-import {Type, isArray, isPresent, serializeEnum, deserializeEnum} from "angular2/src/facade/lang";
+import {
+  Type,
+  isArray,
+  isPresent,
+  serializeEnum,
+  deserializeEnum,
+  BaseException
+} from "angular2/src/facade/lang";
 import {List, ListWrapper, Map, StringMapWrapper, MapWrapper} from "angular2/src/facade/collection";
 import {
   ProtoViewDto,
@@ -71,8 +78,10 @@ export class Serializer {
       return this._renderViewStore.serializeRenderFragmentRef(obj);
     } else if (type == WorkerElementRef) {
       return this._serializeWorkerElementRef(obj);
+    } else if (type == EventBinding) {
+      return this._serializeEventBinding(obj);
     } else {
-      throw "No serializer for " + type.toString();
+      throw new BaseException("No serializer for " + type.toString());
     }
   }
 
@@ -111,8 +120,10 @@ export class Serializer {
       return this._renderViewStore.deserializeRenderFragmentRef(map);
     } else if (type == WorkerElementRef) {
       return this._deserializeWorkerElementRef(map);
+    } else if (type == EventBinding) {
+      return this._deserializeEventBinding(map);
     } else {
-      throw "No deserializer for " + type.toString();
+      throw new BaseException("No deserializer for " + type.toString());
     }
   }
 
@@ -147,6 +158,15 @@ export class Serializer {
   }
 
   allocateRenderViews(fragmentCount: number) { this._renderViewStore.allocate(fragmentCount); }
+
+  private _serializeEventBinding(binding: EventBinding): StringMap<string, any> {
+    return {'fullName': binding.fullName, 'source': this.serialize(binding.source, ASTWithSource)};
+  }
+
+  private _deserializeEventBinding(map: StringMap<string, any>): EventBinding {
+    return new EventBinding(map['fullName'],
+                            this.deserialize(map['source'], ASTWithSource, "binding"));
+  }
 
   private _serializeWorkerElementRef(elementRef: RenderElementRef): StringMap<string, any> {
     return {
