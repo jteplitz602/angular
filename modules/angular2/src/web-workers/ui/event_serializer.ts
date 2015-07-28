@@ -31,12 +31,32 @@ const KEYBOARD_EVENT_PROPERTIES = [
   'which'
 ];
 
+const EVENT_PROPERTIES = ['type', 'bubbles', 'cancelable'];
+
+export function serializeGenericEvent(e: Event): StringMap<string, any> {
+  return serializeEvent(e, EVENT_PROPERTIES);
+}
+
+// TODO(jteplitz602): Allow users to specify the properties they need rather than always
+// adding value #3374
+export function serializeEventWithValue(e: Event): StringMap<string, any> {
+  var serializedEvent = serializeEvent(e, EVENT_PROPERTIES);
+  return addValue(e, serializedEvent);
+}
+
 export function serializeMouseEvent(e: MouseEvent): StringMap<string, any> {
   return serializeEvent(e, MOUSE_EVENT_PROPERTIES);
 }
 
 export function serializeKeyboardEvent(e: KeyboardEvent): StringMap<string, any> {
-  return serializeEvent(e, KEYBOARD_EVENT_PROPERTIES);
+  var serializedEvent = serializeEvent(e, KEYBOARD_EVENT_PROPERTIES);
+  return addValue(e, serializedEvent);
+}
+
+// TODO(jteplitz602): #3374. See above.
+function addValue(e: Event, serializedEvent: StringMap<string, any>): StringMap<string, any> {
+  serializedEvent['target'] = {'value': (<HTMLInputElement>e.target).value};
+  return serializedEvent;
 }
 
 function serializeEvent(e: any, properties: List<string>): StringMap<string, any> {

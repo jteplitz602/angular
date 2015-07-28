@@ -52,12 +52,37 @@ final Map KEYBOARD_EVENT_PROPERTIES = {
   #type: String
 };
 
+final Map EVENT_PROPERTIES = {
+  #bubbles: bool,
+  #cancelable: bool,
+  #defaultPrevented: bool,
+  #eventPhase: int,
+  #timeStamp: int,
+  #type: String
+};
+
+Map<String, dynamic> serializeGenericEvent(dynamic e) {
+  return serializeEvent(e, EVENT_PROPERTIES);
+}
+
+// TODO(jteplitz602): Allow users to specify the properties they need rather than always
+// adding value #3374
+Map<String, dynamic> serializeEventWithValue(dynamic e) {
+  var serializedEvent = serializeEvent(e, EVENT_PROPERTIES);
+  return addValue(e, serializedEvent);
+}
 Map<String, dynamic> serializeMouseEvent(dynamic e) {
   return serializeEvent(e, MOUSE_EVENT_PROPERTIES);
 }
 
 Map<String, dynamic> serializeKeyboardEvent(dynamic e) {
   return serializeEvent(e, KEYBOARD_EVENT_PROPERTIES);
+}
+
+// TODO(jteplitz602): #3374. See above.
+Map<String, dynamic> addValue(dynamic e, Map<String, dynamic> serializedEvent) {
+  serializedEvent['target'] = {'value': e.target.value};
+  return serializedEvent;
 }
 
 Map<String, dynamic> serializeEvent(dynamic e, Map<Symbol, Type> PROPERTIES) {
