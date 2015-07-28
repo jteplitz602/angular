@@ -236,7 +236,7 @@ class EventDispatcher implements RenderEventDispatcher {
   dispatchRenderEvent(elementIndex: number, eventName: string, locals: Map<string, any>) {
     var e = locals.get('$event');
     var serializedEvent;
-    switch (eventName) {
+    switch (e.type) {
       case "click":
       case "mouseup":
       case "mousedown":
