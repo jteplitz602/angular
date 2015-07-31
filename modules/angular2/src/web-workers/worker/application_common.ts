@@ -66,6 +66,7 @@ import {RenderProtoViewRefStore} from 'angular2/src/web-workers/shared/render_pr
 import {
   RenderViewWithFragmentsStore
 } from 'angular2/src/web-workers/shared/render_view_with_fragments_store';
+import {wtfInit} from 'angular2/src/profile/wtf_init';
 
 var _rootInjector: Injector;
 
@@ -144,6 +145,7 @@ export function bootstrapWebworkerCommon(
     appComponentType: Type, bus: WorkerMessageBus,
     componentInjectableBindings: List<Type | Binding | List<any>> = null): Promise<ApplicationRef> {
   var bootstrapProcess: PromiseCompleter<any> = PromiseWrapper.completer();
+  wtfInit();
 
   var zone = createNgZone();
   zone.run(() => {

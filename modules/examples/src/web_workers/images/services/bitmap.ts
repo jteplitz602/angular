@@ -1,6 +1,7 @@
 /// <reference path="../bitmap.d.ts" />
 /// <reference path="../b64.d.ts" />
 import {Injectable} from 'angular2/angular2';
+import {ImageData, DataView, ArrayBuffer, Uint8ClampedArray} from '../file_api';
 declare var base64js;
 
 // This class is based on the Bitmap examples at:
@@ -34,7 +35,7 @@ export class BitmapService {
   }
 
   // converts a .bmp file ArrayBuffer to a dataURI
-  arrayBufferToDataUri(data: Uint8Array): string {
+  arrayBufferToDataUri(data: Uint8ClampedArray): string {
     return 'data:image/bmp;base64,' + base64js.fromByteArray(data);
   }
 
@@ -138,13 +139,13 @@ export class BitmapService {
     var start = bitmap.fileHeader.bfOffBits;
     bitmap.stride =
         Math.floor((bitmap.infoHeader.biBitCount * bitmap.infoHeader.biWidth + 31) / 32) * 4;
-    bitmap.pixels = new Uint8Array(datav.buffer, start);
+    bitmap.pixels = new Uint8ClampedArray(datav.buffer, start);
     return bitmap;
   }
 
   // Based on example from
   // http://www.worldwidewhat.net/2012/07/how-to-draw-bitmaps-using-javascript/
-  private _getLittleEndianHex(value: number): string {
+  private _getLittleEndianHex(value: int): string {
     var result = [];
 
     for (var bytes = 4; bytes > 0; bytes--) {
@@ -178,5 +179,5 @@ interface BitmapFile {
     biClrImportant: number
   };
   stride: number;
-  pixels: Uint8Array;
+  pixels: Uint8ClampedArray;
 }
