@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css" /> 
+    	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+	</head>
+	<body>
+		<template id="mdl-elem-wrapper">
+			<content>
+			</content>
+		</template>
+		<script>
+			var proto = Object.create(HTMLElement.prototype);
+			var template = document.currentScript.ownerDocument.querySelector("#mdl-elem-wrapper");
+			
+			proto.createdCallback = function(){
+				this.shadowRoot = this.createShadowRoot();
+				var clone = document.importNode(template.content, true);
+
+				this.shadowRoot.appendChild(clone);
+				// Upgrade the MDL elements
+				var elems = this.children;
+				for (var i = 0; i < elems.length; i++){
+					componentHandler.upgradeElement(elems[i]);
+				}
+			};
+
+			document.registerElement("mdl-elem-wrapper", {prototype: proto});
+		</script>
+	</body>
+</html>

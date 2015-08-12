@@ -1,0 +1,47 @@
+.hidden{ display: none; }
+google-chart {
+ height: 500px;
+ width: 800px;
+}
+
+main.mdl-layout__content, .flex-container {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.flex{
+  flex-grow: 1;
+  -webkit-box-flex; 1;
+  -ms-flex-positive: 1;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+}
+
+.big-spinner {
+  width: 50px;
+  height: 50px;
+}
+
+.full_width {
+  width: 100%;
+}
+
+.loader p{
+  font-size: 14pt;
+}
+
+.loader mdl-elem-wrapper {
+  width: 150px;
+}

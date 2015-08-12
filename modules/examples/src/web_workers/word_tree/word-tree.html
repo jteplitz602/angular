@@ -1,0 +1,32 @@
+<mdl-elem-wrapper>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Part of Speech Analyzer</span>
+        <div class="mdl-layout-spacer"></div>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content flex flex-container">
+        <google-chart
+          type="pie"
+          [cols]='[{"label": "Part of Speech", "type": "string"}, {"label": "Occurences", "type": "number"}]'
+          [rows]="rows"
+          [class.hidden]="!showTree"
+          [options]="chartOptions"
+          ></google-chart>
+
+        <file-drop class="flex flex-container"
+          [class.hidden]="loading" (change)="readFile($event)">
+        </file-drop>
+
+        <div class='loader flex flex-container center flex-center' [class.hidden]="!loading">
+          <p>Analyzing text</p>
+          <mdl-elem-wrapper>
+            <div class="mdl-progress full_width mdl-js-progress mdl-progress__indeterminate progress-demo"></div>
+          </mdl-elem-wrapper>
+        </div>
+      </div>
+    </main>
+  </div>
+</mdl-elem-wrapper>
