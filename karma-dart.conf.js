@@ -25,14 +25,9 @@ module.exports = function(config) {
       {pattern: 'modules/**/test/**/static_assets/**', included: false, watched: false},
     ],
 
-    exclude: [
-      'dist/dart/**/packages/**',
-      'modules/angular1_router/**'
-    ],
+    exclude: ['dist/dart/**/packages/**', 'modules/angular1_router/**'],
 
-    karmaDartImports: {
-      guinness: 'package:guinness/guinness_html.dart'
-    },
+    karmaDartImports: {guinness: 'package:guinness/guinness_html.dart'},
 
     // Map packages to the correct urls where Karma serves them.
     proxies: {
@@ -47,6 +42,8 @@ module.exports = function(config) {
       // Local dependencies, transpiled from the source.
       '/packages/angular2/test/': '/base/dist/dart/angular2/test/',
       '/packages/angular2': '/base/dist/dart/angular2/lib',
+      '/packages/angular2_worker': '/base/dist/dart/angular2_worker/lib',
+      '/packages/angular2_worker/test': '/base/dist/dart/angular2_worker/test',
       '/packages/http': '/base/dist/dart/http/lib',
       '/packages/angular2_material': '/base/dist/dart/angular2_material/lib',
       '/packages/benchpress': '/base/dist/dart/benchpress/lib',

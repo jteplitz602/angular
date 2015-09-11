@@ -1,4 +1,4 @@
-import {NgZone, NgFor, Component, View, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
+import {NgZone, NgFor, Component, View, NgIf, FORM_DIRECTIVES} from 'angular2_worker/worker';
 import {BitmapService} from './services/bitmap';
 import {EventListener} from 'angular2/src/core/facade/browser';
 import {FileReader, Uint8ArrayWrapper} from './file_api';

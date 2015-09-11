@@ -17,7 +17,7 @@ module.exports = function makeNodeTree(destinationPath) {
   var outputPackages = ['angular2', 'benchpress'];
 
   var modulesTree = new Funnel('modules', {
-    include: ['angular2/**', 'benchpress/**', '**/e2e_test/**'],
+    include: ['angular2/**', 'angular2_worker/**', 'benchpress/**', '**/e2e_test/**'],
     exclude: [
       // the following code and tests are not compatible with CJS/node environment
       'angular2/test/core/zone/**',

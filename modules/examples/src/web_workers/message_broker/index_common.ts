@@ -1,5 +1,5 @@
 import {PromiseWrapper} from "angular2/src/core/facade/async";
-import {Component, View, ServiceMessageBrokerFactory, PRIMITIVE} from "angular2/web_worker/worker";
+import {Component, View, ServiceMessageBrokerFactory, PRIMITIVE} from "angular2_worker/worker";
 
 const ECHO_CHANNEL = "ECHO";
 

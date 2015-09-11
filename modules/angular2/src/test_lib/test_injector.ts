@@ -70,7 +70,7 @@ import {ElementSchemaRegistry} from 'angular2/src/core/render/dom/schema/element
 import {
   DomElementSchemaRegistry
 } from 'angular2/src/core/render/dom/schema/dom_element_schema_registry';
-import {Serializer} from "angular2/src/web_workers/shared/serializer";
+// import {Serializer} from "angular2_worker/worker";
 import {Log} from './utils';
 
 /**
@@ -121,7 +121,7 @@ function _getAppBindings() {
     AppViewPool,
     AppViewManager,
     AppViewManagerUtils,
-    Serializer,
+    // Serializer,
     ELEMENT_PROBE_BINDINGS,
     bind(APP_VIEW_POOL_CAPACITY).toValue(500),
     Compiler,

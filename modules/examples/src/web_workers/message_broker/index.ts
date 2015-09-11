@@ -1,4 +1,4 @@
-import {bootstrap, UiArguments, FnArg, PRIMITIVE} from "angular2/web_worker/ui";
+import {bootstrap, UiArguments, FnArg, PRIMITIVE} from "angular2_worker/ui";
 
 const ECHO_CHANNEL = "ECHO";
 

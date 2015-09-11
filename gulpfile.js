@@ -299,7 +299,11 @@ gulp.task('lint', ['build.tools'], function() {
     }
   };
 
-  return gulp.src(['modules/angular2/src/**/*.ts', '!modules/angular2/src/test_lib/**'])
+  return gulp.src([
+               'modules/angular2/src/**/*.ts',
+               '!modules/angular2/src/test_lib/**',
+               'modules/angular2_worker/**/*.ts'
+             ])
       .pipe(tslint({configuration: tslintConfig, rulesDirectory: 'dist/tools/tslint'}))
       .pipe(tslint.report('prose', {emitError: true}));
 });
@@ -652,10 +656,8 @@ gulp.task('test.unit.dart', function (done) {
         return;
       }
 
-      watch(['modules/angular2/**'], { ignoreInitial: true }, [
-        '!build/tree.dart',
-        '!test.unit.dart/karma-run'
-      ]);
+      watch(['modules/angular2/**', 'modules/angular2_worker/**'], {ignoreInitial: true},
+            ['!build/tree.dart', '!test.unit.dart/karma-run']);
     }
   );
 });
@@ -698,7 +700,7 @@ gulp.task('test.unit.dart/ci', function (done) {
 
 
 gulp.task('test.unit.cjs/ci', function(done) {
-  runJasmineTests(['dist/js/cjs/{angular2,benchpress}/test/**/*_spec.js'], done);
+  runJasmineTests(['dist/js/cjs/{angular2,benchpress,angular2_worker}/test/**/*_spec.js'], done);
 });
 
 
@@ -730,17 +732,13 @@ gulp.task('test.unit.dartvm', function (done) {
         return;
       }
 
-      watch('modules/angular2/**', { ignoreInitial: true }, [
-        '!build/tree.dart',
-        '!test.unit.dartvm/run'
-      ]);
+      watch(['modules/angular2/**', 'modules/angular2_worker/**'], {ignoreInitial: true},
+            ['!build/tree.dart', '!test.unit.dartvm/run']);
     }
   );
 });
 
-gulp.task('!test.unit.dartvm/run', runServerDartTests(gulp, gulpPlugins, {
-  dir: 'dist/dart/angular2'
-}));
+gulp.task('!test.unit.dartvm/run', runServerDartTests(gulp, gulpPlugins, {dest: 'dist/dart'}));
 
 
 gulp.task('test.unit.tools/ci', function(done) {
@@ -805,13 +803,21 @@ gulp.task('!pre.test.typings', ['docs/typings'], function() {
 
 // -----------------
 gulp.task('test.typings', ['!pre.test.typings'], function() {
-  return gulp.src(['typing_spec/*.ts', 'dist/docs/typings/angular2/*.d.ts', 'dist/docs/typings/http.d.ts'])
-      .pipe(tsc({target: 'ES5', module: 'commonjs',
-                 experimentalDecorators: true,
-                 noImplicitAny: true,
-                 // Don't use the version of typescript that gulp-typescript depends on, we need 1.5
-                 // see https://github.com/ivogabe/gulp-typescript#typescript-version
-                 typescript: require('typescript')}));
+  return gulp.src([
+               'typing_spec/*.ts',
+               'dist/docs/typings/angular2/*.d.ts',
+               'dist/docs/typings/angular2_worker/*.d.ts',
+               'dist/docs/typings/http.d.ts'
+             ])
+      .pipe(tsc({
+        target: 'ES5',
+        module: 'commonjs',
+        experimentalDecorators: true,
+        noImplicitAny: true,
+        // Don't use the version of typescript that gulp-typescript depends on, we need 1.5
+        // see https://github.com/ivogabe/gulp-typescript#typescript-version
+        typescript: require('typescript')
+      }));
 });
 
 // -----------------
@@ -1079,17 +1085,11 @@ gulp.task("!bundle.web_worker.js.dev", ["build.js.dev"], function() {
       merge(true, devBundleConfig.paths, {
        "*": "dist/js/dev/es6/*.js"
       });
-  return bundler.bundle(
-      devBundleConfig,
-      'angular2/web_worker/ui',
-      './dist/build/web_worker/ui.dev.js',
-      { sourceMaps: true }).
-      then(function() {
-        return bundler.bundle(
-          devBundleConfig,
-          'angular2/web_worker/worker',
-          './dist/build/web_worker/worker.dev.js',
-          { sourceMaps: true});
+  return bundler.bundle(devBundleConfig, 'angular2_worker/ui',
+                        './dist/build/angular2_worker_ui.dev.js', {sourceMaps: true})
+      .then(function() {
+        return bundler.bundle(devBundleConfig, 'angular2_worker/worker',
+                              './dist/build/angular2_worker_worker.dev.js', {sourceMaps: true});
       });
 });
 
@@ -1211,8 +1211,8 @@ gulp.task('!bundle.js.sfx.dev.deps', ['!bundle.js.sfx.dev'], function() {
 });
 
 gulp.task('!bundle.web_worker.js.dev.deps', ['!bundle.web_worker.js.dev'], function() {
-  return merge2(addDevDependencies("web_worker/ui.dev.js",
-                addDevDependencies("web_worker/worker.dev.js")));
+  return merge2(addDevDependencies("angular2_worker_worker.dev.js",
+                                   addDevDependencies("angular2_worker_ui.dev.js")));
 });
 
 gulp.task('bundles.js', [

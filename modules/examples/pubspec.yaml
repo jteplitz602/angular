@@ -5,6 +5,7 @@ dependencies:
   observe: '^0.13.1'
   angular2: '^<%= packageJson.version %>'
   angular2_material: '^<%= packageJson.version %>'
+  angular2_worker: '^<%= packageJson.version %>'
   browser: '^0.10.0'
 dev_dependencies:
   guinness: '^0.1.17'
@@ -15,6 +16,8 @@ dependency_overrides:
     path: ../angular2
   angular2_material:
     path: ../angular2_material
+  angular2_worker:
+    path: ../angular2_worker
 transformers:
 - angular2:
     $exclude:

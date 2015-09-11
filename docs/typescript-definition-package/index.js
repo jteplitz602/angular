@@ -39,8 +39,8 @@ module.exports = new Package('angular-v2-docs', [jsdocPackage, nunjucksPackage, 
   readFilesProcessor.basePath = path.resolve(__dirname, '../..');
   readTypeScriptModules.sourceFiles = [
     'angular2/angular2.ts',
-    'angular2/web_worker/worker.ts',
-    'angular2/web_worker/ui.ts',
+    'angular2_worker/worker.ts',
+    'angular2_worker/ui.ts',
     'angular2/router.ts',
     'angular2/http.ts',
     'angular2/test_lib.ts'
@@ -53,9 +53,19 @@ module.exports = new Package('angular-v2-docs', [jsdocPackage, nunjucksPackage, 
       references: ['../es6-promise/es6-promise.d.ts', '../rx/rx.d.ts'],
       modules: {
         'angular2/angular2': {namespace: 'ng', id: 'angular2/angular2'},
-        'angular2/web_worker/worker': {namespace: 'ngWorker', id: 'angular2/web_worker/worker'},
-        'angular2/web_worker/ui': {namespace: 'ngUi', id: 'angular2/web_worker/ui'}
       }
+    },
+    {
+      id: 'angular2_worker/worker',
+      references: ['../es6-promise/es6-promise.d.ts', '../rx/rx.d.ts'],
+      modules: {
+        'angular2_worker/worker': {namespace: 'ngWorker', id: 'angular2_worker/worker'},
+      }
+    },
+    {
+      id: 'angular2_worker/ui',
+      references: ['../es6-promise/es6-promise.d.ts', '../rx/rx.d.ts'],
+      modules: {'angular2_worker/ui': {namespace: 'ngUi', id: 'angular2_worker/ui'}}
     },
     {
       id: 'angular2/router',

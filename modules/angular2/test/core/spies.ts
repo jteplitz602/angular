@@ -15,7 +15,6 @@ import {AppViewManager} from 'angular2/src/core/compiler/view_manager';
 import {AppViewPool} from 'angular2/src/core/compiler/view_pool';
 import {AppViewListener} from 'angular2/src/core/compiler/view_listener';
 import {DomAdapter} from 'angular2/src/core/dom/dom_adapter';
-import {ClientMessageBroker} from 'angular2/src/web_workers/shared/client_message_broker';
 import {XHR} from 'angular2/src/core/render/xhr';
 
 import {

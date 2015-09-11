@@ -1,7 +1,7 @@
 library angular2.examples.web_workers.todo.server_index;
 import "index_common.dart" show TodoApp;
-import "package:angular2/src/web_workers/debug_tools/multi_client_server_message_bus.dart";
-import "package:angular2/src/web_workers/worker/application_common.dart"
+import "package:angular2_worker/src/debug_tools/multi_client_server_message_bus.dart";
+import "package:angular2_worker/src/worker/application_common.dart"
   show bootstrapWebWorkerCommon;
 import 'dart:io';
 import "package:angular2/src/core/reflection/reflection_capabilities.dart";

@@ -2,8 +2,8 @@ library angular2.examples.web_workers.todo.index_web_socket;
 
 import "package:angular2/src/core/reflection/reflection_capabilities.dart";
 import "package:angular2/src/core/reflection/reflection.dart";
-import "package:angular2/src/web_workers/ui/impl.dart" show bootstrapUICommon;
-import "package:angular2/src/web_workers/debug_tools/web_socket_message_bus.dart";
+import "package:angular2_worker/src/ui/impl.dart" show bootstrapUICommon;
+import "package:angular2_worker/src/debug_tools/web_socket_message_bus.dart";
 import 'dart:html'
   show WebSocket;
 

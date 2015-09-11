@@ -39,6 +39,7 @@ function publishModule {
 }
 
 publishModule angular2
+publishModule angular2_worker
 publishModule benchpress
 publishModule benchmarks
 publishModule angular2_material
